@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Follow Me</string>
+    <string name="title_activity_iu">IUActivity</string>
+    <string name="title_activity_music_list">MusicListActivity</string>
+    <string name="title_activity_analyze">AnalyzeActivity</string>
+    <string name="hello">Hello</string>
+
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+</resources>
