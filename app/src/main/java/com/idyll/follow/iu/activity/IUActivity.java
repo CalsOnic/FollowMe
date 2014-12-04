@@ -24,7 +24,7 @@ public class IUActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(IUActivity.this, AnalyzeActivity.class);
+                Intent intent = new Intent(IUActivity.this, MusicListActivity.class);
                 startActivity(intent);
                 finish();
             }

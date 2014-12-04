@@ -116,6 +116,8 @@ public class AnalyzeActivity extends Activity implements View.OnClickListener {
                     for (int i = 0; i < BLOCK_SIZE && i < bufferReadResult; i++) {
                         toTransform[i] = (double)buffer[i] / Short.MAX_VALUE;
                     }
+
+                    Log.d("log", "running...");
                 }
 
                 audioRecord.stop();
