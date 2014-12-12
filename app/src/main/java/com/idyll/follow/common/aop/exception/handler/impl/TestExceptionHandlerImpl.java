@@ -7,6 +7,8 @@ import android.util.Log;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.idyll.follow.common.aop.exception.handler.ExceptionHandler;
+import com.idyll.follow.common.logging.PrintLog;
+import com.idyll.follow.common.logging.PrintToast;
 
 /**
  * 에러처리 핸들러(인터페이스와 구현체로 분리해도 됨)
@@ -52,7 +54,7 @@ public class TestExceptionHandlerImpl implements ExceptionHandler {
 
     @Override
     public void doLogging(Context context, Throwable throwable, String message) {
-        Log.d("TestException", message);
+        PrintLog.error(message);
     }
 
     @Override

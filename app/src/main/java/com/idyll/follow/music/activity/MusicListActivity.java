@@ -15,16 +15,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.idyll.follow.R;
+import com.idyll.follow.common.logging.PrintLog;
+import com.idyll.follow.common.logging.PrintToast;
+import com.idyll.follow.music.adapter.SongsAdapter;
+import com.idyll.follow.music.entity.Song;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MusicListActivity extends ListActivity {
+public class MusicListActivity extends Activity {
     private static final String MEDIA_PATH = "sdcard/FollowMe/";
     private MediaPlayer mediaPlayer = new MediaPlayer();
-    private ArrayList<String> songs = new ArrayList<String>();
+    private ArrayList<Song> musicList = new ArrayList<Song>();
+    private ListView musicListView = null;
     private int currentPosition = 0;
 
     @Override
@@ -38,7 +43,7 @@ public class MusicListActivity extends ListActivity {
 
     protected void onListItemClick(ListView listView, View view, int position, long id) {
         currentPosition = position;
-        playSong(MEDIA_PATH + songs.get(position));
+        playSong(MEDIA_PATH + musicList.get(position).getName());
     }
 
     @Override
@@ -86,7 +91,7 @@ public class MusicListActivity extends ListActivity {
     }
 
     private void nextSong() {
-        if (++currentPosition >= songs.size()) {
+        if (++currentPosition >= musicList.size()) {
             // 마지막 곡이 끝나면 재생할 곡을 초기화합니다.
             currentPosition = 0;
             TextView status = (TextView)findViewById(R.id.playStatus);
@@ -94,7 +99,7 @@ public class MusicListActivity extends ListActivity {
         } else {
             // 다음 곡을 재생
             Toast.makeText(getApplicationContext(), "play next song.", Toast.LENGTH_SHORT).show();
-            playSong(MEDIA_PATH + songs.get(currentPosition));
+            playSong(MEDIA_PATH + musicList.get(currentPosition).getName());
         }
     }
 
@@ -102,15 +107,24 @@ public class MusicListActivity extends ListActivity {
         File file = new File(MEDIA_PATH);
 
         if (!file.exists()) {
-            Log.e("tlog", "not exist files");
+            PrintLog.error("not exists files");
             return;
         }
 
-        Toast.makeText(getApplicationContext(), "?", Toast.LENGTH_SHORT).show();
+        PrintToast.toast(this, "?");
 
-        songs.add("iu_goodday.mp3");
-        ArrayAdapter<String> songList = new ArrayAdapter<String>(this, R.layout.song_item, songs);
-        setListAdapter(songList);
+        Song song = new Song();
+        song.setName("iu_goodday.mp3");
+
+        musicList.add(song);
+
+        // Connect to ArrayAdapter
+        musicListView = (ListView)findViewById(R.id.music_listview);
+        musicListView.setAdapter(new SongsAdapter(this, R.layout.song_item, musicList));
+
+
+        //ArrayAdapter<String> songList = new ArrayAdapter<String>(this, R.layout.song_item, songs);
+        //setListAdapter(songList);
 
         /*
         File[] fileList = file.listFiles(new Mp3Filter());
