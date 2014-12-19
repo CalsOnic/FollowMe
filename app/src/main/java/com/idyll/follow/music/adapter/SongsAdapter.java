@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.idyll.follow.R;
+import com.idyll.follow.common.logging.PrintLog;
 import com.idyll.follow.music.entity.Song;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class SongsAdapter extends ArrayAdapter<Song> {
 
     public SongsAdapter(Context context, int resource, List<Song> objects) {
         super(context, resource, objects);
+        this.layoutInflater = LayoutInflater.from(context);
+        this.mContext = context;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class SongsAdapter extends ArrayAdapter<Song> {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Song song = getItem(position);
         View view = convertView;
 
         if (null == view) {
@@ -63,7 +67,7 @@ public class SongsAdapter extends ArrayAdapter<Song> {
             viewHolder = (ViewHolder)view.getTag();
         }
 
-        viewHolder.songTitle.setText(getItem(position).getName());
+        viewHolder.songTitle.setText(song.getName());
 
         return view;
     }
@@ -94,5 +98,4 @@ public class SongsAdapter extends ArrayAdapter<Song> {
     class ViewHolder {
         public TextView songTitle = null;
     }
-
 }

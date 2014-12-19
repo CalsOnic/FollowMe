@@ -26,7 +26,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MusicListActivity extends Activity {
-    private static final String MEDIA_PATH = "sdcard/FollowMe/";
+    //private static final String MEDIA_PATH = "/sdcard/FollowMe/";
+    private static final String MEDIA_PATH = "/storage/emulated/0/FollowMe/";
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private ArrayList<Song> musicList = new ArrayList<Song>();
     private ListView musicListView = null;
@@ -43,6 +44,7 @@ public class MusicListActivity extends Activity {
 
     protected void onListItemClick(ListView listView, View view, int position, long id) {
         currentPosition = position;
+        PrintLog.error("play music");
         playSong(MEDIA_PATH + musicList.get(position).getName());
     }
 
@@ -111,33 +113,37 @@ public class MusicListActivity extends Activity {
             return;
         }
 
-        PrintToast.toast(this, "?");
+/*
+        for (int i = 0; i < 5; i++) {
+            song song = new song();
+            song.setname(i + " - iu_goodday.mp3");
+            musiclist.add(song);
+        }
 
-        Song song = new Song();
-        song.setName("iu_goodday.mp3");
 
-        musicList.add(song);
+        song song = new song();
+        song.setname("iu_goodday.mp3");
+        musiclist.add(song);
+*/
+        PrintLog.error("1");
+        //file[] filelist = file.listfiles(new mp3filter());
+        File[] fileList = file.listFiles();
+        PrintLog.error("2");
+        if (fileList.length < 1) {PrintLog.error("no files");return;}
+        PrintLog.error("3");
+        for (File bean : fileList) {
+            Song song = new Song();
+            song.setName(bean.getName());
+            musicList.add(song);
+        }
 
-        // Connect to ArrayAdapter
+        PrintToast.toast(this, "count of songs  : " + musicList.size());
+
+        // connect to arrayadapter
         musicListView = (ListView)findViewById(R.id.music_listview);
         musicListView.setAdapter(new SongsAdapter(this, R.layout.song_item, musicList));
 
 
-        //ArrayAdapter<String> songList = new ArrayAdapter<String>(this, R.layout.song_item, songs);
-        //setListAdapter(songList);
-
-        /*
-        File[] fileList = file.listFiles(new Mp3Filter());
-
-        if (fileList.length < 1) {return;}
-
-        for (File bean : fileList) {
-            songs.add(bean.getName());
-        }
-
-        ArrayAdapter<String> songList = new ArrayAdapter<String>(this, R.layout.song_item, songs);
-        setListAdapter(songList);
-        */
     }
 }
 
