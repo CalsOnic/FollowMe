@@ -3,6 +3,7 @@ package com.idyll.follow.common.logging;
 import android.util.Log;
 
 public class PrintLog {
+    private static boolean DEBUG = true;
     private static final String tag = "log";
 
     private PrintLog() {
@@ -10,10 +11,10 @@ public class PrintLog {
     }
 
     public static void error(String tag, String message) {
-        Log.e(tag, message);
+        if (DEBUG) {Log.e(tag, message);}
     }
 
     public static void error(String message) {
-        Log.e(tag, message);
+        if (DEBUG) {Log.e(tag, message);}
     }
 }

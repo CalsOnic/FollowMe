@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.idyll.follow.music.activity.MusicListActivity">
@@ -10,11 +11,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="준비됨"
-        android:textSize="13pt"
+        android:textSize="15pt"
         />
 
     <ListView
-        android:id="@id/android:list"
+        android:id="@+id/music_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
